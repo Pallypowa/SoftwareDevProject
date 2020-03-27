@@ -29,7 +29,7 @@
             android:layout_margin="5dp"
             android:padding="15dp"
             android:background="@android:color/white"
-            android:src="@drawable/ic_search_black"
+            android:src="@drawable/ic_calendar_black"
             />
         <ImageButton
             android:id="@+id/homeBtn"
@@ -47,7 +47,7 @@
             android:layout_margin="5dp"
             android:padding="15dp"
             android:background="@android:color/white"
-            android:src="@drawable/ic_notifications_black"
+            android:src="@drawable/ic_assessment_black"
             />
     </LinearLayout>
 

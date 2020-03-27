@@ -76,15 +76,8 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
         })
 
-
-
-
         mViewPager.currentItem = 1
         homeBtn.setImageResource(R.drawable.ic_home_purple)
-
-
-
-
 
     }
 
@@ -92,28 +85,19 @@ class MainActivity : AppCompatActivity() {
 
 
         if (position == 0) {
-            searchBtn.setImageResource(R.drawable.ic_search_purple)
+            searchBtn.setImageResource(R.drawable.ic_calendar_purple)
             homeBtn.setImageResource(R.drawable.ic_home_black)
-            notiBtn.setImageResource(R.drawable.ic_notifications_black)
-
-
-
-
+            notiBtn.setImageResource(R.drawable.ic_assessment_black)
         }
         if (position == 1) {
-            searchBtn.setImageResource(R.drawable.ic_search_black)
+            searchBtn.setImageResource(R.drawable.ic_calendar_black)
             homeBtn.setImageResource(R.drawable.ic_home_purple)
-            notiBtn.setImageResource(R.drawable.ic_notifications_black)
-
-
-
-
-
+            notiBtn.setImageResource(R.drawable.ic_assessment_black)
         }
         if (position == 2) {
+            searchBtn.setImageResource(R.drawable.ic_calendar_black)
             homeBtn.setImageResource(R.drawable.ic_home_black)
-            searchBtn.setImageResource(R.drawable.ic_search_black)
-            notiBtn.setImageResource(R.drawable.ic_notifications_purple)
+            notiBtn.setImageResource(R.drawable.ic_assessment_purple)
 
         }
     }

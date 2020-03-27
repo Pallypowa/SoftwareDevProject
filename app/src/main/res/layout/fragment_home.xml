@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/trans_green"
+    tools:context=".Fragments.AddFragment">
+
+
+    <TextClock
+        android:id="@+id/timeViewClock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:fontFamily="sans-serif-smallcaps"
+        android:gravity="center_vertical|center_horizontal"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="#fff"
+        android:layout_marginTop="100dp"
+        android:textSize="80sp"
+        android:format24Hour="hh:mm"
+        android:timeZone="GMT+1"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="HOME"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:gravity="center"/>
+
+</RelativeLayout>

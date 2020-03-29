@@ -23,7 +23,7 @@
         android:layout_marginBottom="15dp">
 
         <ImageButton
-            android:id="@+id/searchBtn"
+            android:id="@+id/calendarBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -41,7 +41,7 @@
             android:src="@drawable/ic_home_black"
             />
         <ImageButton
-            android:id="@+id/notificationsBtn"
+            android:id="@+id/statBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

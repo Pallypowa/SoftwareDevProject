@@ -4,20 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextClock
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
-import com.example.studentcalendar.Adapter.PagerAdapter
-
+import com.example.studentcalendar.Adapters.PagerAdapter
+import com.example.studentcalendar.Adapters.RecyclerAdapter
+import kotlinx.android.synthetic.main.fragment_statistics.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    //Clock
-    private lateinit var textclock: TextClock
-
     // Buttons
     private lateinit var homeBtn:ImageButton
-    private lateinit var notiBtn:ImageButton
-    private lateinit var searchBtn:ImageButton
+    private lateinit var statBtn:ImageButton
+    private lateinit var calendarBtn:ImageButton
 
     private lateinit var mViewPager: ViewPager
     private lateinit var mPagerViewAdapter: PagerAdapter
@@ -27,18 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // init clock
-
+        //--------This whole section is responsible for the pager--------
         // init views
         mViewPager = findViewById(R.id.mViewPager)
         homeBtn = findViewById(R.id.homeBtn)
-        searchBtn = findViewById(R.id.searchBtn)
-        notiBtn = findViewById(R.id.notificationsBtn)
-
+        calendarBtn = findViewById(R.id.calendarBtn)
+        statBtn = findViewById(R.id.statBtn)
 
         //onclick listener
 
-        searchBtn.setOnClickListener {
+        calendarBtn.setOnClickListener {
             mViewPager.currentItem = 0
 
         }
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        notiBtn.setOnClickListener {
+        statBtn.setOnClickListener {
             mViewPager.currentItem = 3
 
         }
@@ -58,8 +55,6 @@ class MainActivity : AppCompatActivity() {
         mPagerViewAdapter = PagerAdapter(supportFragmentManager)
         mViewPager.adapter = mPagerViewAdapter
         mViewPager.offscreenPageLimit = 3
-
-
 
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -79,28 +74,55 @@ class MainActivity : AppCompatActivity() {
         mViewPager.currentItem = 1
         homeBtn.setImageResource(R.drawable.ic_home_purple)
 
+
+
+        //--------RecyclerView--------
+
+//        val exampleList = generateDummyList(10)
+//        recycler_view.adapter = RecyclerAdapter(exampleList)
+//        recycler_view.layoutManager = LinearLayoutManager(this)
+//        recycler_view.setHasFixedSize(true)
+
     }
 
     private fun changeTabs(position: Int) {
 
 
         if (position == 0) {
-            searchBtn.setImageResource(R.drawable.ic_calendar_purple)
+            calendarBtn.setImageResource(R.drawable.ic_calendar_purple)
             homeBtn.setImageResource(R.drawable.ic_home_black)
-            notiBtn.setImageResource(R.drawable.ic_assessment_black)
+            statBtn.setImageResource(R.drawable.ic_assessment_black)
         }
         if (position == 1) {
-            searchBtn.setImageResource(R.drawable.ic_calendar_black)
+            calendarBtn.setImageResource(R.drawable.ic_calendar_black)
             homeBtn.setImageResource(R.drawable.ic_home_purple)
-            notiBtn.setImageResource(R.drawable.ic_assessment_black)
+            statBtn.setImageResource(R.drawable.ic_assessment_black)
         }
         if (position == 2) {
-            searchBtn.setImageResource(R.drawable.ic_calendar_black)
+            calendarBtn.setImageResource(R.drawable.ic_calendar_black)
             homeBtn.setImageResource(R.drawable.ic_home_black)
-            notiBtn.setImageResource(R.drawable.ic_assessment_purple)
+            statBtn.setImageResource(R.drawable.ic_assessment_purple)
 
         }
     }
 
+    //Generates a dummy list for our recycler view
+    private fun generateDummyList(size: Int): List<ItemClass> {
+
+        val list = ArrayList<ItemClass>()
+
+        for (i in 0 until size) {
+            val drawable = when (i % 3) {
+                0 -> R.drawable.ic_sentiment_satisfied
+                1 -> R.drawable.ic_sentiment_very_dissatisfied
+                else -> R.drawable.ic_sentiment_satisfied
+            }
+
+            val item = ItemClass(drawable, "Item $i", "Line 2")
+            list += item
+        }
+
+        return list
+    }
 
 }

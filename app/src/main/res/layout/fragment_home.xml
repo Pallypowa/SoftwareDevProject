@@ -11,24 +11,27 @@
         android:id="@+id/timeViewClock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:ellipsize="none"
         android:fontFamily="sans-serif-smallcaps"
+        android:format24Hour="hh:mm"
         android:gravity="center_vertical|center_horizontal"
         android:includeFontPadding="false"
         android:singleLine="true"
         android:textColor="#fff"
-        android:layout_marginTop="100dp"
         android:textSize="80sp"
-        android:format24Hour="hh:mm"
-        android:timeZone="GMT+1"/>
-
+        android:timeZone="GMT+1" />
 
     <TextView
+        android:id="@+id/nextClass"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HOME"
+        android:layout_height="55dp"
+        android:layout_below="@id/timeViewClock"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="Next class"
         android:textColor="@android:color/black"
-        android:textSize="40sp"
-        android:gravity="center"/>
+        android:textSize="40sp" />
 
 </RelativeLayout>

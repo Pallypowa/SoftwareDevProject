@@ -1,4 +1,4 @@
-package com.example.studentcalendar.Adapter
+package com.example.studentcalendar.Adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,13 +12,13 @@ internal class PagerAdapter (fm: FragmentManager?): FragmentPagerAdapter(fm!!){
 
         return when(position){
             0 -> {
-                SearchFragment()
+                CalendarFragment()
             }
             1 -> {
                 HomeFragment()
             }
             2 -> {
-                NotificationsFragment()
+                StatisticsFragment()
             }
             else -> HomeFragment()
 

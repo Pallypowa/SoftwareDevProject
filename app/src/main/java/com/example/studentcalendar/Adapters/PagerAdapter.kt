@@ -5,12 +5,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.studentcalendar.Fragments.*
 
-internal class PagerAdapter (fm: FragmentManager?): FragmentPagerAdapter(fm!!){
+internal class PagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
 
 
     override fun getItem(position: Int): Fragment {
 
-        return when(position){
+        return when (position) {
             0 -> {
                 CalendarFragment()
             }

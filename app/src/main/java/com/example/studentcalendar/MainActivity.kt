@@ -74,15 +74,6 @@ class MainActivity : AppCompatActivity() {
         mViewPager.currentItem = 1
         homeBtn.setImageResource(R.drawable.ic_home_purple)
 
-
-
-        //--------RecyclerView--------
-
-//        val exampleList = generateDummyList(10)
-//        recycler_view.adapter = RecyclerAdapter(exampleList)
-//        recycler_view.layoutManager = LinearLayoutManager(this)
-//        recycler_view.setHasFixedSize(true)
-
     }
 
     private fun changeTabs(position: Int) {
@@ -106,23 +97,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Generates a dummy list for our recycler view
-    private fun generateDummyList(size: Int): List<ItemClass> {
-
-        val list = ArrayList<ItemClass>()
-
-        for (i in 0 until size) {
-            val drawable = when (i % 3) {
-                0 -> R.drawable.ic_sentiment_satisfied
-                1 -> R.drawable.ic_sentiment_very_dissatisfied
-                else -> R.drawable.ic_sentiment_satisfied
-            }
-
-            val item = ItemClass(drawable, "Item $i", "Line 2")
-            list += item
-        }
-
-        return list
-    }
 
 }

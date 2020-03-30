@@ -20,16 +20,16 @@ import kotlinx.android.synthetic.main.fragment_statistics.*
 class StatisticsFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater , container: ViewGroup? ,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
-        val rootView = inflater.inflate(R.layout.fragment_statistics, container, false)
+        //--------RecyclerView--------
+        val rootView = inflater.inflate(R.layout.fragment_statistics , container , false)
 
-        val exampleList = generateDummyList(500)
-        var recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.adapter = RecyclerAdapter(exampleList)
+        val exampleList = generateDummyList(15)
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.adapter = RecyclerAdapter(exampleList, this.context)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         return rootView
@@ -46,7 +46,7 @@ class StatisticsFragment : Fragment() {
                 else -> R.drawable.ic_sentiment_satisfied
             }
 
-            val item = ItemClass(drawable, "Item $i", "Line 2")
+            val item = ItemClass(drawable , "Item $i" , "Line 2")
             list += item
         }
 

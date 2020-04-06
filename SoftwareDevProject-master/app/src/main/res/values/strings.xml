@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">StudentCalendar</string>
+    <string-array name="my_header_title">
+        <item></item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+</resources>

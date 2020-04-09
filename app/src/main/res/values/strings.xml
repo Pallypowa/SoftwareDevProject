@@ -2,11 +2,11 @@
     <string name="app_name">StudentCalendar</string>
     <string-array name="my_header_title">
         <item></item>
-        <item>Mon</item>
-        <item>Tue</item>
-        <item>Wed</item>
-        <item>Thu</item>
-        <item>Fri</item>
+        <item>Hétfő</item>
+        <item>Kedd</item>
+        <item>Szerda</item>
+        <item>Csüt</item>
+        <item>Péntek</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
 </resources>

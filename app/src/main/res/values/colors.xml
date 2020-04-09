@@ -4,12 +4,16 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#D81B60</color>
 
-    // Transparent colors
 
+    // Transparent colors
     <color name="trans_green">#7525d366</color>
     <color name="trans_red">#85DD2C00</color>
     <color name="trans_purple">#88673AB7</color>
     <color name="trans_blue">#7C2196F3</color>
     <color name="trans_yellow">#A6FFEB3B</color>
+
+
+    // Sticker colors
+    // TODO
 
 </resources>

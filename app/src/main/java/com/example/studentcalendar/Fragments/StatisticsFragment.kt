@@ -2,18 +2,17 @@ package com.example.studentcalendar.Fragments
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentcalendar.Adapters.RecyclerAdapter
 import com.example.studentcalendar.ItemClass
-
 import com.example.studentcalendar.R
-import kotlinx.android.synthetic.main.fragment_statistics.*
 import kotlin.random.Random
+
 
 /**
  * A simple [Fragment] subclass.
@@ -50,7 +49,7 @@ class StatisticsFragment : Fragment() {
                 R.drawable.ic_sentiment_satisfied
             }
 
-            val item = ItemClass(drawable , "Item $i" , "Line 2", randomAbsent)
+            val item = ItemClass(drawable , "Tárgy $i" , "Hiányzások: ", randomAbsent)
             list += item
         }
 

@@ -35,16 +35,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/class_name"
             android:layout_toEndOf="@id/image_view"
-            android:text="Óra helye"
+            android:text="Hiányzások:"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/absents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Hiányzások: x"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:textSize="20sp"
+            android:text="x"
+            android:layout_toEndOf="@id/class_room"
+            android:layout_marginTop="34dp"
+            android:layout_marginLeft="10dp"
+            />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

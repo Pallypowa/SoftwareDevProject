@@ -41,4 +41,5 @@
         android:layout_centerHorizontal="true"
         android:text="MAP"
         android:textSize="20sp"/>
+
 </RelativeLayout>

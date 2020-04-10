@@ -36,14 +36,20 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     //Library
-
     implementation 'com.google.android.material:material:1.0.0'
 
     //RecyclerView
-
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //WeekView Calendar
     implementation 'com.github.tlaabs:TimetableView:1.0.3-fx1'
+
+    //Login and Calendar API
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation 'com.google.api-client:google-api-client-android:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

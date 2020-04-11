@@ -1,14 +1,19 @@
 package com.example.studentcalendar
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
-import android.widget.TextClock
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.studentcalendar.Adapters.PagerAdapter
-import com.example.studentcalendar.Adapters.RecyclerAdapter
-import kotlinx.android.synthetic.main.fragment_statistics.*
+import com.example.studentcalendar.com.example.studentcalendar.SIKER
+import com.example.studentcalendar.com.example.studentcalendar.handleSignInResult
+import com.example.studentcalendar.com.example.studentcalendar.signIn
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.Scope
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +26,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mViewPager: ViewPager
     private lateinit var mPagerViewAdapter: PagerAdapter
 
+    //signIn stuff
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN=9001
+    //private lateinit var Gaccount: GoogleSignInAccount
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +38,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //signIn stuff
+        val gso= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("77984558619-jdl0jodu9ud54atfipuq0gj4oa9ac6te.apps.googleusercontent.com")
+            .requestScopes(Scope("https://www.googleapis.com/auth/calendar.readonly"))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
+        Log.i("Place: ","Client created")
 
         //Coords reading
         val reader = JsonReader()
@@ -78,6 +96,23 @@ class MainActivity : AppCompatActivity() {
         homeBtn.setImageResource(R.drawable.ic_home_purple)
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.i("Place: ","in onStart")
+        val Gaccount=GoogleSignIn.getLastSignedInAccount(this)
+        if(Gaccount==null){
+            //Not logged in
+            Log.i("Place: ","Not logged in")
+            signIn(this,mGoogleSignInClient,RC_SIGN_IN)
+
+
+        }else{
+            //loggen in
+            Log.i("Place: ","Already logged in")
+            SIKER(this, Gaccount)
+        }
+    }
+
     private fun changeTabs(position: Int) {
 
 
@@ -99,6 +134,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==RC_SIGN_IN){
+            val task=GoogleSignIn.getSignedInAccountFromIntent(data)
+            val Gaccount=handleSignInResult(task)
+            SIKER(this,Gaccount)
+        }
+    }
 
 }
 /*TODO

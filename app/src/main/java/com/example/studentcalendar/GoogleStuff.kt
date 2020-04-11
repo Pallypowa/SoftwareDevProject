@@ -100,7 +100,7 @@ fun signIn(activity: Activity,SignInClient: GoogleSignInClient , RequestCode: In
 fun handleSignInResult(compTask: Task<GoogleSignInAccount>): GoogleSignInAccount?{
     var acc: GoogleSignInAccount?=null
     try{
-        val acc= compTask.getResult(ApiException::class.java)
+        acc= compTask.getResult(ApiException::class.java)
     }catch (e: ApiException){
         Log.i("Failed code=",e.statusCode.toString())
     }

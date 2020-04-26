@@ -4,6 +4,8 @@ import android.accounts.Account
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -17,24 +19,33 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.calendar.Calendar
 import com.google.gson.Gson
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
 val HTTP_TRANSPORT= AndroidHttp.newCompatibleTransport()
 val JSON_FACTOTY= JacksonFactory.getDefaultInstance()
+val SHARED_PREF="sharedPref"
 
 fun SIKER(con: Context , acc: GoogleSignInAccount?){
     Log.i("SIKER","SIKER")
-    CoroutineScope(Dispatchers.IO).launch { APIcalls(con,acc?.account) }
+    CoroutineScope(Dispatchers.IO).launch { mainFunc(con,acc?.account) }
+    Log.i("Siker","VEGE")
 
 }
 
-suspend fun APIcalls(con: Context, acc: Account?){
+suspend fun mainFunc(con: Context , acc: Account?){
     val calList= getCalendarList(con,acc)
     Log.i("calList",calList.toString())
-    val id= CoroutineScope(Dispatchers.Main).async { chooseCalendar(con,calList) }.await()
+
+    val id= getCalendarID(con,calList)
     val eventList=getEventList(con,acc,id)
-    Log.i("Events:", eventList)
+    Log.i("Events:", eventList.toString())
+    Log.i("GOT ID",id.toString())
+    //getUsedEvenets(eventList)
+
 }
 
 fun getCredential(con:Context, acc: Account?):GoogleAccountCredential{
@@ -43,7 +54,16 @@ fun getCredential(con:Context, acc: Account?):GoogleAccountCredential{
     return credential.setSelectedAccount((acc))
 }
 
-suspend fun chooseCalendar(con:Context,calList: CalendarList):String?{
+suspend fun getCalendarID(con:Context,calList:CalendarList):String?{
+    val sharedPreferences=con.getSharedPreferences("com.example.studentcalendar.com.example.studentcalendar",android.content.Context.MODE_PRIVATE)
+    var id= sharedPreferences.getString(SHARED_PREF,null)
+    if(id==null){
+        id= CoroutineScope(Dispatchers.Main).async { chooseCalendar(con,calList,sharedPreferences) }.await()
+    }
+    return id
+}
+
+suspend fun chooseCalendar(con:Context,calList: CalendarList,shd:SharedPreferences):String?{
     var calendars= mutableMapOf<String,String>()
     var chosenCalendar:String?=null
     for(i in calList.items) calendars.put(i.summary,i.id)
@@ -52,6 +72,7 @@ suspend fun chooseCalendar(con:Context,calList: CalendarList):String?{
     val keyList=calendars.keys.toTypedArray()
     alertDialogBuilder.setItems(keyList, DialogInterface.OnClickListener { dialog, which ->
         chosenCalendar= calendars[keyList[which]].toString()
+        shd.edit().putString(SHARED_PREF,chosenCalendar).apply()
         Log.i("Calendar id", chosenCalendar)
     })
     val dialog=alertDialogBuilder.create()
@@ -74,7 +95,7 @@ suspend fun getCalendarList(con: Context, acc: Account?):CalendarList{
     return Gson().fromJson(result,CalendarList::class.java)
 }
 
-suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):String{
+suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):EventList?{
     var result=""
     try {
         var  credential=GoogleAccountCredential.usingOAuth2(
@@ -89,7 +110,7 @@ suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):String{
     }catch (e: Exception){
         e.printStackTrace()
     }
-    return result
+    return Gson().fromJson(result,EventList::class.java)
 }
 
 fun signIn(activity: Activity,SignInClient: GoogleSignInClient , RequestCode: Int){
@@ -105,6 +126,29 @@ fun handleSignInResult(compTask: Task<GoogleSignInAccount>): GoogleSignInAccount
         Log.i("Failed code=",e.statusCode.toString())
     }
     return acc
+}
+
+fun getUsedEvenets(events: EventList){
+    var usedEvents= mutableListOf<EventItems>()
+    var curDate= Date(getCurrentDate())
+    for(event in events.items){
+        var eventDateTime=Date(event.start.dateTime)
+        if(eventDateTime>curDate) usedEvents.add(event)
+    }
+    usedEvents.toString()
+}
+
+fun getCurrentDate():String{
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss")
+        return current.format(formatter)
+    } else {
+        var date = Date();
+        val formatter = SimpleDateFormat("MMM dd yyyy HH:mma")
+        return formatter.format(date)
+
+    }
 }
 
 

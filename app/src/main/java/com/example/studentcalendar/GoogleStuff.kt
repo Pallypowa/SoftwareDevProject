@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.util.DateTime
 import com.google.api.services.calendar.Calendar
 import com.google.gson.Gson
 import kotlinx.coroutines.*
@@ -97,6 +98,11 @@ suspend fun getCalendarList(con: Context, acc: Account?):CalendarList{
 
 suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):EventList?{
     var result=""
+    val minDate=DateTime(java.util.Calendar.getInstance().time)
+    val maxDateU=(java.util.Calendar.getInstance().add(java.util.Calendar.DATE,-7))
+    val maxDate=DateTime(maxDateU.toString())
+    Log.i("MINDATE",minDate.toStringRfc3339())
+    Log.i("MAXDATE",maxDate.toStringRfc3339())
     try {
         var  credential=GoogleAccountCredential.usingOAuth2(
             con, Collections.singleton("https://www.googleapis.com/auth/calendar.readonly"))
@@ -105,8 +111,12 @@ suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):EventList?{
         val service=Calendar.Builder(HTTP_TRANSPORT,JSON_FACTOTY,credential)
             .setApplicationName("DUMMY APP")
             .build()
-        var calendarListResponse=service.events().list(calID).execute()
-        result= calendarListResponse.toString()
+        var calendarListResponse=service.events().list(calID)
+            .setOrderBy("startTime")
+            .setTimeMin(minDate)
+            .setSingleEvents(true)
+            .execute()
+            result= calendarListResponse.toString()
     }catch (e: Exception){
         e.printStackTrace()
     }

@@ -98,9 +98,10 @@ suspend fun getCalendarList(con: Context, acc: Account?):CalendarList{
 
 suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):EventList?{
     var result=""
-    val minDate=DateTime(java.util.Calendar.getInstance().time)
-    val maxDateU=(java.util.Calendar.getInstance().add(java.util.Calendar.DATE,-7))
-    val maxDate=DateTime(maxDateU.toString())
+    var cal=java.util.Calendar.getInstance()
+    val minDate=DateTime(cal.time)
+    cal.add(java.util.Calendar.DAY_OF_YEAR,7)
+    val maxDate=DateTime(cal.time)
     Log.i("MINDATE",minDate.toStringRfc3339())
     Log.i("MAXDATE",maxDate.toStringRfc3339())
     try {
@@ -114,6 +115,7 @@ suspend fun  getEventList(con: Context,acc:Account?,  calID:String?):EventList?{
         var calendarListResponse=service.events().list(calID)
             .setOrderBy("startTime")
             .setTimeMin(minDate)
+            .setTimeMax(maxDate)
             .setSingleEvents(true)
             .execute()
             result= calendarListResponse.toString()

@@ -45,7 +45,8 @@ data class EventItems (
 	@SerializedName("visibility") val visibility : String ,
 	@SerializedName("iCalUID") val iCalUID : String ,
 	@SerializedName("sequence") val sequence : Int ,
-	@SerializedName("reminders") val reminders : Reminders
+	@SerializedName("reminders") val reminders : Reminders,
+	var nepID:String
 )
 
 data class Creator (

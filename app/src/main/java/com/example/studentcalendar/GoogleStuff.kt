@@ -49,8 +49,6 @@ suspend fun mainFunc(con: Context , acc: Account?){
 
     writeDB(con,eventList!!)
     checkDB(con)
-    updateDB(con,"VEMIINB154H")
-    checkDB(con)
 
 }
 
@@ -195,6 +193,20 @@ fun updateDB(con:Context, id:String){
     }catch (e:Exception){
         e.printStackTrace()
     }
+}
+
+fun getAbsenceFromDB(con:Context, id: String):Int{
+    var res=0
+    try {
+        val myDB=con.openOrCreateDatabase("HIANYZASOK",Context.MODE_PRIVATE,null)
+        val querySELECT="SELECT hianyz FROM hianyzasok WHERE targy='${id}'"
+        val cursor=myDB.rawQuery(querySELECT,null)
+        cursor.moveToFirst()
+        res=cursor.getInt(1)
+    }catch (e:Exception){
+        e.printStackTrace()
+    }
+    return res
 }
 
 

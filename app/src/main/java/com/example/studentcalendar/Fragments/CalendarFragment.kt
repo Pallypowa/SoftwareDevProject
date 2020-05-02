@@ -26,6 +26,9 @@ class CalendarFragment : Fragment() {
         val timetable = rootView.timetable
         val schedules = ArrayList<Schedule>()
 
+
+
+
         val schedule1 = Schedule()
         schedule1.classTitle = "Digitalis szamitas elmelete"
         schedule1.classPlace = "A01"
@@ -69,6 +72,7 @@ class CalendarFragment : Fragment() {
         schedule5.startTime = Time(8 , 0)
         schedule5.endTime = Time(10 , 0)
         schedules.add(schedule5)
+
 
         timetable.add(schedules)
         return rootView
